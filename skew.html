@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>scale</title>
+<style>
+div{
+    font-size:20px;
+}
+#div1{ 
+    width:200px; 
+    height:200px; 
+    background:#ccc;
+	transition:.7s all ease;
+    margin-left:15px;
+    text-align:center;
+    line-height:200px;
+    position:absolute;
+    left:15px;
+    top:100px;
+} 
+
+#div2{
+    width:200px; 
+    height:200px; 
+    background:#ccc;
+	transition:.7s all ease;
+    text-align:center;
+    line-height:200px;
+    position:absolute;
+    left:315px;
+    top:100px;
+}
+
+#div3{
+    width:200px; 
+    height:200px; 
+    background:#ccc;
+	transition:.7s all ease;
+    text-align:center;
+    line-height:200px;
+    position:absolute;
+    left:615px;
+    top:100px;
+}
+
+#div1:active{transform:skew(10deg,20deg);}
+#div2:active{transform:skewX(10deg);}
+#div3:active{transform:skewY(20deg);}
+</style>
+</head>
+
+<body>
+
+<div id="div1">skew(10deg,20deg)</div>
+
+<div id="div2">skewX(10deg)</div>
+
+<div id="div3">skewY(20deg)</div>
+
+</body>
+</html>

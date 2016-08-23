@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>scale</title>
+<style>
+#div1{ 
+    width:200px; 
+    height:200px; 
+    background:#ccc;
+	transition:.7s all ease;
+    margin-left:15px;
+    text-align:center;
+    line-height:200px;
+    position:absolute;
+    left:100px;
+    top:100px;
+} 
+
+#div2{
+    width:200px; 
+    height:200px; 
+    background:#ccc;
+	transition:.7s all ease;
+    text-align:center;
+    line-height:200px;
+    position:absolute;
+    right:100px;
+    top:100px;
+}
+#div1:active{width:400px; height:400px;}
+#div2:active{transform:scale(2);}
+</style>
+<script>
+window.onload = function(){
+	var oDiv1 = document.getElementById("div1");
+    var oDiv2 = document.getElementById("div2");
+	
+	setInterval(function(){
+		oDiv1.innerHTML = oDiv1.offsetWidth;
+        oDiv2.innerHTML = oDiv2.offsetWidth;
+	},30);
+		
+};
+</script>
+</head>
+
+<body>
+
+<div id="div1"></div>
+
+<div id="div2"></div>
+
+</body>
+</html>

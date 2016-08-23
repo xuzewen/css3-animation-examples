@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>scale</title>
+<style>
+div{
+    font-size:30px;
+}
+#div1{ 
+    width:150px; 
+    height:150px; 
+    background:#ccc;
+	transition:.7s all ease;
+    margin-left:15px;
+    text-align:center;
+    line-height:150px;
+    position:absolute;
+    left:15px;
+    top:100px;
+    transform: perspective(800px) rotate(0);
+} 
+
+#div2{
+    width:150px; 
+    height:150px; 
+    background:#ccc;
+	transition:.7s all ease;
+    text-align:center;
+    line-height:150px;
+    position:absolute;
+    left:245px;
+    top:100px;
+    transform: perspective(800px) rotateX(0);
+}
+
+#div3{
+    width:150px; 
+    height:150px; 
+    background:#ccc;
+	transition:.7s all ease;
+    text-align:center;
+    line-height:150px;
+    position:absolute;
+    left:445px;
+    top:100px;
+    transform: perspective(800px) rotateY(0);
+}
+
+#div4{
+    width:150px; 
+    height:150px; 
+    background:#ccc;
+	transition:.7s all ease;
+    text-align:center;
+    line-height:150px;
+    position:absolute;
+    left:645px;
+    top:100px;
+    transform: perspective(800px) rotateZ(0);
+}
+
+#div1:active{transform:perspective(800px) rotate(60deg);}
+#div2:active{transform:perspective(800px) rotateX(60deg);}
+#div3:active{transform:perspective(800px) rotateY(60deg);}
+#div4:active{transform:perspective(800px) rotateZ(60deg);}
+</style>
+</head>
+
+<body>
+
+<div id="div1">默认</div>
+
+<div id="div2">x</div>
+
+<div id="div3">y</div>
+
+<div id="div4">z</div>
+
+</body>
+</html>

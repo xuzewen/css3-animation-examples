@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>banner</title>
+<style>
+*{margin:0;padding:0;list-style:none;}
+#ul1{ 
+	position:relative;
+	width:630px; 
+	height:235px; 
+	margin:100px auto;
+}
+#ul1 li{ 
+	display:none;
+	position:absolute;
+	left:0;
+	top:0; 
+	opacity:0; 
+	width:100%; 
+	height:100%;
+	transform: perspective(800px) scale(1,1) translateX(0)  rotateY(0deg) ;
+	transition:.5s all ease;
+}
+#ul1 li img{
+	width:630px; 
+	height:235px; 
+	border-radius:5px;
+}
+#ul1 li span{
+	position:absolute; 
+	left:0;
+	top:235px;
+	width:100%; 
+	height:100%; 
+	background-size:100% 100%;
+	transform:scale(1,-1);
+	-webkit-mask:-webkit-linear-gradient(rgba(0,0,0,0) 90%,rgba(0,0,0,1));
+	opacity:0.4;
+	border-radius:5px;
+}
+
+#ul1 li.l2{ 
+	display:block;
+	transform: perspective(800px) scale(0.7,0.7) translateX(-300px)  rotateY(45deg) ; z-index:1;
+}
+#ul1 li.l1{ 
+	display:block; 
+	opacity:.6; 
+	transform: perspective(800px) scale(0.7,0.7) translateX(-240px)  rotateY(45deg) ; z-index:2;
+}
+#ul1 li.cur{ 
+	display:block; 
+	opacity:1; 
+	z-index:5;
+}
+#ul1 li.r1{ 
+	display:block; 
+	opacity:.6; 
+	transform: perspective(800px)  scale(0.7,0.7) translateX(240px)  rotateY(-45deg) ;z-index:2;
+}
+#ul1 li.r2{ 
+	display:block;
+	transform: perspective(800px) scale(0.7,0.7) translateX(300px)  rotateY(-45deg) ;z-index:1;
+}
+
+#prev, #next{width:200px; height:50px; text-align:center;font:30px/50px "kaiti";border:1px solid #000; background:#999; border-radius:10px;
+	position:relative;
+	transition:0.4s all ease;
+	box-shadow:inset 0 0 10px #fff,0 10px #000;
+	
+}
+#prev{
+	left:20px;top:10px;
+}
+#next{
+	left:250px;top:-40px;
+}
+#prev:hover{box-shadow:inset 0 0 20px #fff,0 10px #000;}
+#next:hover{box-shadow:inset 0 0 20px #fff,0 10px #000;}
+#prev:active{box-shadow:inset 0 0 20px #fff,0 0 #000; top:20px;}
+#next:active{box-shadow:inset 0 0 20px #fff,0 0 #000; top:-30px;}
+
+
+</style>
+<script>
+window.onload = function(){
+	var oPrev = document.getElementById("prev");
+	var oNext = document.getElementById("next");
+	var oUl   = document.getElementById("ul1");
+	var oSpan = document.getElementsByTagName('span')
+	var aLi   = oUl.children;
+	var len   = aLi.length;
+	
+	var bReady = true;
+	
+	var aClass = [];
+	for(var i = 0; i < len; i++){
+		aClass.push(aLi[i].className);
+		oSpan[i].style.background = `url(./img/${i}.jpg) no-repeat`
+	}
+	
+	oPrev.onclick = function(){
+		if(!bReady) return;
+		bReady = false;
+		
+		aClass.push(aClass.shift());
+  
+		tab();
+	};
+	
+	function tab(){
+		for(var i = 0; i < len; i++){
+			aLi[i].className = aClass[i];
+		}
+		
+		var oCur = document.querySelector(".cur");
+		oCur.addEventListener("transitionend",function(){
+			bReady = true;
+		},false);	
+	}
+	
+	
+	oNext.onclick = function(){
+		
+		if(!bReady) return;
+		bReady = false;
+		
+		aClass.unshift(aClass.pop());
+  		tab();
+	};
+		
+	
+};
+</script>
+</head>
+
+<body>
+	<div id="prev">上一个</div>
+	<div id="next">下一个</div>
+	<ul id="ul1">
+		<li class="l2"><img src="img/0.jpg" /><span></span></li>
+		<li class="l1"><img src="img/1.jpg" /><span></span></li>
+		<li class="cur"><img src="img/2.jpg" /><span></span></li>
+		<li class="r1"><img src="img/3.jpg" /><span></span></li>
+		<li class="r2"><img src="img/4.jpg" /><span></span></li>
+		<li><img src="img/5.jpg" /><span></span></li>
+		<li><img src="img/6.jpg" /><span></span></li>
+		<li><img src="img/7.jpg" /><span></span></li>
+	</ul>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>scale</title>
+<style>
+div{
+    font-size:30px;
+}
+#div1{ 
+    width:200px; 
+    height:200px; 
+    background:#ccc;
+	transition:.7s all ease;
+    margin-left:15px;
+    text-align:center;
+    line-height:200px;
+    position:absolute;
+    left:15px;
+    top:100px;
+} 
+
+#div2{
+    width:200px; 
+    height:200px; 
+    background:#ccc;
+	transition:.7s all ease;
+    text-align:center;
+    line-height:200px;
+    position:absolute;
+    left:315px;
+    top:100px;
+}
+
+#div3{
+    width:200px; 
+    height:200px; 
+    background:#ccc;
+	transition:.7s all ease;
+    text-align:center;
+    line-height:200px;
+    position:absolute;
+    left:615px;
+    top:100px;
+}
+
+#div1:active{transform:scale(-1,1);}
+#div2:active{transform:scale(1,-1);}
+#div3:active{transform:scale(-1);}
+</style>
+</head>
+
+<body>
+
+<div id="div1">左右翻</div>
+
+<div id="div2">上下翻</div>
+
+<div id="div3">全部翻</div>
+
+</body>
+</html>

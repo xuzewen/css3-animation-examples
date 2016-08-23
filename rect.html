@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>rect</title>
+<style>
+#div1{ position:relative;width:200px; height:200px; background:#ccc; margin:100px auto;
+	transform:perspective(800px) rotateX(0deg) rotateY(0deg);
+	transform-style:preserve-3d;
+	/*transition:3s all ease;*/
+}
+#div1 div{ position:absolute;left:0;top:0;width:198px; height:198px; border:1px solid #000; line-height:198px; text-align:center;  font-size:24px;}
+
+#div1 div.front{ transform:translateZ(100px);}
+#div1 div.back{ transform:translateZ(-100px);}
+#div1 div.left{ transform: rotateY(-90deg)  translateZ(100px);}
+#div1 div.right{ transform: rotateY(90deg) translateZ(100px);}
+#div1 div.top{ transform: rotateX(90deg) translateZ(100px);}
+#div1 div.bottom{ transform: rotateX(-90deg)  translateZ(100px);}
+
+</style>
+<script>
+window.onload = function(){
+	
+	var oDiv = document.getElementById("div1");
+	
+	var x = 0;
+	var y = 0;
+	oDiv.onmousedown = function(ev){
+		var disX = ev.clientX - y;
+		var disY = ev.clientY - x;
+		document.onmousemove = function(ev){
+			
+			y  = ev.clientX - disX ;
+			x  = ev.clientY - disY ;
+			
+			console.log(y,x);
+			oDiv.style.transform = "perspective(800px) rotateX("+-x+"deg) rotateY("+y+"deg)";
+		};
+		document.onmouseup = function(){
+			document.onmousemove = null;
+			document.onmouseup = null;
+		};	
+		return false;
+	};
+	
+	
+		
+};
+</script>
+</head>
+
+<body>
+<div id="div1">
+	<div class="front">前面</div>
+	<div class="back">后面</div>
+	<div class="left">左边</div>
+	<div class="right">右边</div>
+	<div class="top">上面</div>
+	<div class="bottom">下面</div>
+</div>
+
+</body>
+</html>

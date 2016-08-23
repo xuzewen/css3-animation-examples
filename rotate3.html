@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>rotate3</title>
+<style>
+
+#ul1 li{
+    float:left;width:100px; height:100px; background:#ccc; transition:1s all ease;  margin:30px; list-style:none;
+}
+li:nth-child(1){ -webkit-transform-origin:center center;}
+li:nth-child(2){ -webkit-transform-origin:left top;}
+li:nth-child(3){ -webkit-transform-origin:right bottom;}
+li:nth-child(4){ -webkit-transform-origin:200px 100px;}
+li:nth-child(5){ -webkit-transform-origin:left center;}
+
+#ul1 li:hover{transform:rotate(60deg);}
+</style>
+
+</head>
+
+<body>
+
+<ul id="ul1">
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+</ul>
+</body>
+</html>

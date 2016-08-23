@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>CSS3动画</title>
+
+		<link rel="stylesheet" href="./css/reveal.css">
+		<link rel="stylesheet" href="./css/theme/simple.css" id="theme">
+		<link rel="stylesheet" href="./qunit-1.12.0.css">
+		<link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="./css/linkstyles.css" />
+		<style type="text/css" media="screen">
+			/*.slides section.has-dark-background,
+			.slides section.has-dark-background h3 {
+				color: #fff;
+			}
+			.slides section.has-light-background,
+			.slides section.has-light-background h3 {
+				color: #222;
+			}*/
+			a.link{
+				color: #ccc;
+				font-size: 100px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<div class="slides">
+
+				<section>
+					<div class="grid">
+						<div class="grid__item color-11">
+							<a class="link link--yaku" href="#">
+								<span>C</span><span>S</span><span>S</span><span>3</span><span>动</span><span>画</span>					
+							</a>
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
+						<script type="text/template">
+							<h2>为什么要使用C3动画</h2>
+
+							<p>
+								<span class="fragment" data-fragment-index="1">性能</span>
+								<span class="fragment" data-fragment-index="2">？</span>
+							</p>
+							
+							<p class="fragment">
+								·因为C3实现动画比JS更简单
+							</p>
+							<p class="fragment">
+								·C3动画有天然事件支持（TransitionEnd、AnimationEnd）
+							</p>
+
+							---
+
+							<h2>关于性能</h2>
+							<p class="fragment">基于Chromium的浏览器</p>
+							<p class="fragment">不触发主线程的属性：opacity，transfrom</p>
+							<ul class="fragment">
+								<li>是否导致layout</li>
+								<li>重绘的面积</li>
+								<li>是否是有高消耗的属性</li>
+								<li>是否启用硬件加速</li>
+							</ul>
+
+							---
+
+							<p>Chromium以外的浏览器</p>
+							<table>
+								<tbody><tr>
+								<th>Animated&nbsp;properties</th>
+								<th>Better&nbsp;w/JavaScript</th>
+								<th>Better&nbsp;w/CSS</th>
+								</tr><tr>
+								</tr><tr>
+								<td>top, left, width, height</td>
+								<td>Windows Surface RT, iPhone 5s (iOS7), iPad 3 (iOS 6), iPad 3 (iOS7), Samsung Galaxy Tab 2, Chrome, Firefox, Safari, Opera, Kindle Fire HD, IE11</td>
+								<td>(none)</td>
+								</tr>
+								<tr>
+								<td>transforms (translate/scale)</td>
+								<td>Windows Surface RT, iPhone 5s (iOS7), iPad 3 (iOS7), Samsung Galaxy Tab 2, Firefox, Opera, IE11</td>
+								<td>iPad 3 (iOS6), Safari, Chrome</td>
+								</tr>
+								</tbody>
+							</table>
+
+							---
+							
+							<iframe width="1366" height="500" src="./banner.html"></iframe>
+
+							---
+
+							<h3>缺点</h3>
+							<ul class="fragment">
+								<li>不够灵活（跟js相比）</li>
+								<li>兼容性</li>
+							</ul>
+
+							---
+
+							<h3>结论</h3>
+							<ul class="fragment">
+								<li>不考虑兼容性的情况下尽量使用C3动画</li>
+								<li>使用C3动画时如果可以尽量改变transfrom</li>
+							</ul>
+						</script>
+					</section>
+				</section>
+
+				<section data-transition="zoom">
+					<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
+						<script type="text/template">
+							## transition 过渡
+
+							---
+
+							```
+							div{
+								transition: 1s all ease 1s;
+							}
+
+							```
+
+							```css
+							div{
+								transition-duration: 1s;     /* 过渡时间 */
+								transition-property: all;    /* 设置过渡效果的属性名 */
+								transition-timing-function: ease;  /* 运动曲线函数 */
+								transition-delay: 1s;			  /* 延迟时间 */
+							}
+
+							```
+
+							---
+
+							<iframe width="1366" height="300" src="./transition1.html"></iframe>
+
+							```
+							#div1{ 
+								width:200px; 
+								height:200px; 
+								background:red;
+								transition:700ms all ease; /* .7s all ease; */
+							} 
+							#div1:hover{width:600px;background:red;}
+
+							```
+
+							```
+							#div2{
+								transition: 500ms width ease-out, 0.3s height ease-in;
+							}
+
+							```
+
+							---
+
+							```
+							#div1{ 
+								transition-timing-function: ease;
+								/*
+									linear        线性（等于 cubic-bezier(0,0,1,1)）
+									ease          缓冲（cubic-bezier(0.25,0.1,0.25,1)
+									ease-in       加速 （等于 cubic-bezier(0.42,0,1,1)）
+									ease-out      减速 （等于 cubic-bezier(0,0,0.58,1)）
+									ease-in-out   加速后减速	(等于 cubic-bezier(0.42,0,0.58,1)）
+									cubic-bezier(n,n,n,n)   自定义值，n为0-1之间数
+								*/
+							} 
+
+							```
+
+							---
+
+							<iframe width="1366" height="800" src="./transition2.html"></iframe>
+
+							---
+
+							<iframe width="1366" height="300" src="./transition3.html"></iframe>
+
+
+							```
+								div{
+									transition:1s all ease 2s;
+									transition-delay: 2s;
+								}
+
+							```
+
+
+						</script>
+					</section>
+
+				</section>
+
+				<section data-transition="zoom-in fade-out">
+					<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
+						<script type="text/template">
+							##transform 变化
+
+							---
+
+							###translate 移动
+							###scale     缩放
+							###skew      倾斜
+							###scale     旋转
+							###matrix    矩阵变化
+
+							---
+
+							###translate 移动
+
+							```
+							div{
+								transform:translate(x,y);
+								transform:translate3d(x,y,z);
+								transform:translateX(x);
+								transform:translateY(y);
+								transform:translateZ(z);
+							}
+
+							```
+
+							---
+
+							<iframe width="1366" height="500" src="./translate.html"></iframe>
+
+							```
+							div{
+								position:absolute;
+								top:50%;
+								left:50%;
+								transform:translate(-50%,-50%);
+							}
+							```
+
+							---
+
+							###scale     缩放
+
+							```
+							div{
+								transform:scale(x,y);
+								transform:scale3d(x,y,z);
+								transform:scaleX(x);
+								transform:scaleY(y);
+								transform:scaleZ(z);
+							}
+
+							```
+
+							---
+
+							<iframe width="1366" height="500" src="./scale.html"></iframe>
+
+							```
+							#div1:active{
+								width:400px; 
+								height:400px;
+							}
+							#div2:active{
+								transform:scale(2);
+							}
+
+							```
+
+							---
+
+							<iframe width="1366" height="400" src="./scale2.html"></iframe>
+
+							```
+							#div1:active{transform:scale(-1,1);}
+							#div2:active{transform:scale(1,-1);}
+							#div3:active{transform:scale(-1);}
+
+							```
+
+							---
+
+							###skew     扭曲
+
+							```
+							div{
+								transform:skew(x-angle,y-angle);
+								transform:skewX(angle);
+								transform:skewY(angle);
+							}
+
+							```
+
+							---
+
+							<iframe width="1366" height="400" src="./skew.html"></iframe>
+
+							```
+							#div1:active{transform:skew(10deg,20deg);}
+							#div2:active{transform:skewX(10deg);}
+							#div3:active{transform:skewY(20deg);}
+
+							```
+
+							---
+
+							###rotate     旋转
+
+							```
+							div{
+								transform:rotate(angle);
+								transform:rotate3d(x,y,z,angle);
+								transform:rotateX(angle);
+								transform:rotateY(angle);
+								transform:rotateZ(angle);
+							}
+
+							```
+
+							---
+							
+							<iframe width="1366" height="300" src="./rotate.html"></iframe>
+
+							```
+							#div1:active{transform:rotate(60deg);}
+							#div2:active{transform:rotateX(60deg);}
+							#div3:active{transform:rotateY(60deg);}
+							#div4:active{transform:rotateZ(60deg);}
+							```
+
+							---
+							
+							<iframe width="1366" height="300" src="./rotate3.html"></iframe>
+
+							```
+							li:nth-child(1){ -webkit-transform-origin:center center;}
+							li:nth-child(2){ -webkit-transform-origin:left top;}
+							li:nth-child(3){ -webkit-transform-origin:right bottom;}
+							li:nth-child(4){ -webkit-transform-origin:200px 100px;}
+							li:nth-child(5){ -webkit-transform-origin:left center;}
+							```
+
+							---
+
+							### perspective(n) 景深
+
+							<iframe width="1366" height="300" src="./rotate2.html"></iframe>
+
+							```
+							#div2{transform:perspective(800px) rotateX(0deg);}
+							#div1:active{transform:perspective(800px) rotate(60deg);}
+							#div2:active{transform:perspective(800px) rotateX(60deg);}
+							#div3:active{transform:perspective(800px) rotateY(60deg);}
+							#div4:active{transform:perspective(800px) rotateZ(60deg);}
+							```
+
+
+							---
+
+							```
+							div{
+								transform: perspective(800px);   /* 视觉的3D */
+								transform-style: preserve-3d;	/* 真正的3D */
+							}
+
+							preserve-3d perspective    一般都加给父级
+							perspective                会加给运动的元素
+
+							```
+
+							---
+
+							### matrix 矩阵变化
+
+							<iframe width="1366" height="400" src="./matrix.html"></iframe>
+
+							```
+							#div1:active{transform:matrix(0.866,0.5,-0.5,0.866,0,0);}
+							#div2:active{transform:matrix(0.586,0.8,-0.8,0.786,0,0);}
+							#div3:active{transform:matrix(0.586,0.8,-0.8,0.586,40,40);}
+
+							```
+
+							---
+
+							###注意点
+
+							- 不改变盒模型
+							- w3c标准，inline元素是不能做css transform的
+							- 做效果时要注意属性的顺序
+							- 后面的先生效
+
+						</script>
+					</section>
+				</section>
+
+				<section data-transition="convex">
+					<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
+						<script type="text/template">
+							##实例
+
+							---
+
+							<iframe width="1366" height="400" src="./float.html"></iframe>
+
+							```
+							#div1{
+								transform:perspective(800px) rotateY(30deg) rotateX(40deg);
+								transform-style:preserve-3d;
+							}
+							#div2{
+								transition:1s all ease;
+							}
+
+							#div1:active #div2{ 
+								transform:translateZ(150px);
+							}
+
+							```
+
+							---
+
+
+							<iframe width="1366" height="400" src="./rect.html"></iframe>
+
+							```
+								#div1 div.front{ transform:translateZ(100px);}
+								#div1 div.back{ transform:translateZ(-100px);}
+								#div1 div.left{ transform: rotateY(-90deg)  translateZ(100px);}
+								#div1 div.right{ transform: rotateY(90deg) translateZ(100px);}
+								#div1 div.top{ transform: rotateX(90deg) translateZ(100px);}
+								#div1 div.bottom{ transform: rotateX(-90deg)  translateZ(100px);}
+							```
+
+							---
+
+
+							<iframe width="1366" height="470" src="./book.html"></iframe>
+
+							```
+							#div1 .page1 .front{ 
+								background:url(img/0.jpg) no-repeat right center;
+								transform:translateZ(1px);z-index:2;
+							}
+							#div1 .page1 .back{ 
+								background:url(img/1.jpg) no-repeat;
+								transform:translateZ(-1px) scale(-1,1);z-index:1;
+							}
+							```
+						</script>
+					</section>
+				</section>
+
+				<section data-transition="convex-in concave-out">
+					<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
+						<script type="text/template">
+							###animation 动画
+
+							---
+
+							```
+							div{
+								animation: name 5s;
+							}
+
+							```
+
+							使用动画至少要包括两个动画属性
+
+							- 动画的名字
+							- 动画的时长
+
+
+							---
+
+							```
+							
+							@keyframes name{
+								from { ... }
+								to { ...}
+							}
+
+							@keyframes name{
+								0%   { ... }
+								25%  { ... }
+								50%  { ... }
+								100% { ... }
+							}
+
+							from = 0%  to = 100%
+							```
+
+							---
+
+							```
+							div{
+								animation-name: name;                /* 动画名字，@keyframes的名字*/
+								animation-duration: 5s;              /* 动画持续时间 */
+								animation-timing-function: linear;   /* 动画运动方式，默认ease */
+								animation-delay: 2s;                 /* 动画延迟，默认0 */
+								animation-iteration-count: infinite; /* 动画播放次数，默认1 */
+								animation-direction: alternate;      /* 动画是否逆向返回，默认normal */
+								animation-play-state: running;       /* 动画播放的状态，默认running */
+								animation-fill-mode: forwards;       /* 动画播放时间之外的状态 */
+							}
+							```
+
+							---
+
+							<iframe width="1366" height="200" src="./animation.html"></iframe>
+
+							```
+							div{
+							 	animation: color 5s linear , position 2s ease 5s;
+							} 
+
+							@keyframes color{
+								0%   { background:#ccc; }
+								25%  { background:red; }
+								50%  { background:yellow; }
+								100% { background:blue; }
+							}
+
+							@keyframes position{
+								from { left: 0}
+								to { left: 600px;}
+							}
+							```
+
+							---
+
+							<iframe width="1366" height="200" src="./animation2.html"></iframe>
+
+							```
+							div{
+								animation: position 2s ease;
+								animation-iteration-count: infinite;
+							} 
+
+
+							@keyframes position{
+								from { left: 0}
+								to { left: 600px;}
+							}
+							```
+
+							---
+
+							<iframe width="1366" height="200" src="./animation3.html"></iframe>
+
+							```
+							div{
+								animation: position 2s ease;
+								animation-iteration-count: infinite;
+								animation-direction: alternate;
+							} 
+
+
+							@keyframes position{
+								from { left: 0}
+								to { left: 600px;}
+							}
+							```
+
+							---
+
+							<iframe width="1366" height="460" src="./animation4.html"></iframe>
+
+							```
+							div1{
+								animation: position 2s ease;
+							}
+							div2{
+								animation: position 2s ease;
+								animation-fill-mode: forwards;
+							}
+							```
+
+							---
+
+							<iframe width="1366" height="460" src="./animation5.html"></iframe>
+
+							```
+							div1{
+								left:100px;
+								animation: position 2s ease 2s;
+							}
+							div2{
+								left:100px;
+								animation: position 2s ease 2s;
+								animation-fill-mode: backwards;
+							}
+							```
+
+							---
+
+							<iframe width="1366" height="300" src="./animation6.html"></iframe>
+
+							```
+							div{
+								animation: walker 1s steps(7) infinite;
+							}
+							@keyframes walker {
+								from {background-position:0 0;}
+								to {background-position:-1260px 0 ;}
+							}
+							```
+
+
+						</script>
+					</section>
+				</section>
+
+				<section>
+					<section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
+						<script type="text/template">
+							###作业
+
+							<iframe width="1366" height="500" src="./rect2.html"></iframe>
+
+							---
+							
+							## 谢谢
+
+							- 展示工具 reveal.js
+							- 参考地址：
+								- http://www.w3school.com.cn/css3/index.asp
+								- http://www.w3cplus.com/css3/CSS3-animation.html
+								- https://segmentfault.com/q/1010000000645415
+						</script>
+					</section>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="./lib/js/head.min.js"></script>
+		<script src="./js/reveal.js"></script>
+		<script src="./plugin/markdown/marked.js"></script>
+		<script src="./plugin/markdown/markdown.js"></script>
+		<script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
+		<script src="./qunit-1.12.0.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+				center: true,
+				history: true,
+
+				// transition: 'slide',
+				// transitionSpeed: 'slow',
+				// backgroundTransition: 'slide'
+			});
+			hljs.initHighlightingOnLoad();
+		</script>
+
+	</body>
+</html>

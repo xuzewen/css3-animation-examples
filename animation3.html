@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>animation</title>
+<style>
+
+#div1{ 
+    width:200px; 
+    height:200px; 
+    background:#ccc;
+	transition:.7s all ease;
+    margin-left:20px;
+    text-align:center;
+    line-height:200px;
+    position:absolute;
+    left:0;
+    top:0;
+    animation: position 2s ease;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+} 
+
+
+@keyframes position{
+    from { left: 0}
+    to { left: 600px;}
+}
+</style>
+<script>
+
+</script>
+</head>
+
+<body>
+
+<div id="div1"></div>
+</body>
+</html>
